@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { SETTINGS_SECTIONS } from './settings-data'
+import { getSettingsSections } from './settings-data'
 import { SettingsSearch } from './SettingsSearch'
+import { useLang } from '../i18n'
 
 const ICON_MINUS = '/icons/settings/minus.svg'
 
@@ -11,8 +12,10 @@ type Props = {
 }
 
 export function SettingsNavCompact({ activeItem, onNavigate, onBack }: Props) {
+  const { t } = useLang()
+  const sections = getSettingsSections(t)
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>(
-    () => Object.fromEntries(SETTINGS_SECTIONS.map(s => [s.id, false]))
+    () => Object.fromEntries(sections.map(s => [s.id, false]))
   )
   const [searchOpen, setSearchOpen] = useState(false)
 
@@ -84,7 +87,7 @@ export function SettingsNavCompact({ activeItem, onNavigate, onBack }: Props) {
 
         {/* Scrollable sections */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '0 8px 8px' }}>
-          {SETTINGS_SECTIONS.map(section => (
+          {sections.map(section => (
             <div key={section.id} data-id={`settings-nav-compact-section-${section.id}`} style={{ marginBottom: 4 }}>
 
               {/* Section header button */}

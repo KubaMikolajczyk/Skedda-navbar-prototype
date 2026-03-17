@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { SETTINGS_SECTIONS } from './settings-data'
+import { getSettingsSections } from './settings-data'
 import { SettingsSearch } from './SettingsSearch'
 import { SettingsNavCompact } from './SettingsNavCompact'
+import { useLang } from '../i18n'
 
 const ICON_MINUS = '/icons/settings/minus.svg'
 
@@ -13,14 +14,16 @@ type Props = {
 }
 
 export function SettingsNav({ activeItem, onNavigate, onBack, compact }: Props) {
+  const { t } = useLang()
+  const sections = getSettingsSections(t)
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>(
+    () => Object.fromEntries(sections.map(s => [s.id, false]))
+  )
+  const [searchOpen, setSearchOpen] = useState(false)
+
   if (compact) {
     return <SettingsNavCompact activeItem={activeItem} onNavigate={onNavigate} onBack={onBack} />
   }
-
-  const [collapsed, setCollapsed] = useState<Record<string, boolean>>(
-    () => Object.fromEntries(SETTINGS_SECTIONS.map(s => [s.id, false]))
-  )
-  const [searchOpen, setSearchOpen] = useState(false)
 
   function toggleSection(id: string) {
     setCollapsed(prev => ({ ...prev, [id]: !prev[id] }))
@@ -90,7 +93,7 @@ export function SettingsNav({ activeItem, onNavigate, onBack, compact }: Props) 
 
         {/* Scrollable items */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '0 8px 8px' }}>
-          {SETTINGS_SECTIONS.map(section => (
+          {sections.map(section => (
             <div key={section.id} data-id={`settings-nav-section-${section.id}`} style={{ marginBottom: 16 }}>
 
               {/* Section toggle header */}

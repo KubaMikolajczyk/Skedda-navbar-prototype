@@ -1,12 +1,8 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { createPortal } from 'react-dom'
-import { SETTINGS_SECTIONS } from './settings-data'
+import { getSettingsSections } from './settings-data'
 import type { SettingsItem } from './settings-data'
-
-const SUGGESTED: SettingsItem[] = [
-  SETTINGS_SECTIONS.find(s => s.id === 'rules')!.items.find(i => i.id === 'settings-pricing')!,
-  SETTINGS_SECTIONS.find(s => s.id === 'core-booking-setup')!.items.find(i => i.id === 'settings-bookable-spaces')!,
-]
+import { useLang } from '../i18n'
 
 function Highlight({ text, query }: { text: string; query: string }) {
   if (!query) return <>{text}</>
@@ -34,6 +30,15 @@ type Props = {
 }
 
 export function SettingsSearch({ onNavigate, onClose }: Props) {
+  const { t } = useLang()
+  const sections = getSettingsSections(t)
+  const st = t.settings.search
+
+  const SUGGESTED = useMemo<SettingsItem[]>(() => [
+    sections.find(s => s.id === 'rules')!.items.find(i => i.id === 'settings-pricing')!,
+    sections.find(s => s.id === 'core-booking-setup')!.items.find(i => i.id === 'settings-bookable-spaces')!,
+  ], [sections])
+
   const [query, setQuery] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -49,14 +54,14 @@ export function SettingsSearch({ onNavigate, onClose }: Props) {
     const q = query.trim().toLowerCase()
     if (!q) return []
     const out: GroupedResult[] = []
-    for (const section of SETTINGS_SECTIONS) {
+    for (const section of sections) {
       const matched = section.items.filter(item =>
         item.label.toLowerCase().includes(q) || item.description.toLowerCase().includes(q)
       )
       if (matched.length) out.push({ sectionTitle: section.title, items: matched })
     }
     return out
-  }, [query])
+  }, [query, sections])
 
   const hasQuery = query.trim().length > 0
   const hasResults = grouped.length > 0
@@ -106,7 +111,7 @@ export function SettingsSearch({ onNavigate, onClose }: Props) {
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
-            placeholder="Search within settings"
+            placeholder={st.placeholder}
             style={{
               flex: 1, border: 'none', outline: 'none',
               fontSize: 15, color: '#0a0a0a',
@@ -137,12 +142,12 @@ export function SettingsSearch({ onNavigate, onClose }: Props) {
           {!hasQuery && (
             <div style={{ padding: '12px 8px 8px' }}>
               <p style={{ fontSize: 13, color: 'rgba(63,69,76,0.5)', margin: '0 8px 16px' }}>
-                Search within Settings only. It won't search bookings or any other data.
+                {st.scope}
               </p>
               <p data-id="settings-search-suggested-label" style={{
                 fontSize: 13, fontWeight: 700, color: '#3f454c', margin: '0 8px 4px',
               }}>
-                Suggested searches
+                {st.suggestedLabel}
               </p>
               {SUGGESTED.map(item => (
                 <button
@@ -174,10 +179,10 @@ export function SettingsSearch({ onNavigate, onClose }: Props) {
                   <circle cx="11" cy="11" r="7" /><line x1="16.5" y1="16.5" x2="22" y2="22" />
                 </svg>
                 <p style={{ margin: 0, fontSize: 14, color: '#212529', textAlign: 'center' }}>
-                  No settings found for <strong>'{query.trim()}'</strong>.
+                  {st.noResultsFor.replace('{query}', query.trim())}
                 </p>
                 <p style={{ margin: 0, fontSize: 13, color: 'rgba(63,69,76,0.5)', textAlign: 'center' }}>
-                  Check your spelling or try a different term
+                  {st.noResultsHint}
                 </p>
               </div>
               <div style={{ borderTop: '1px solid #dee2e6', padding: '12px 16px' }}>
@@ -195,7 +200,7 @@ export function SettingsSearch({ onNavigate, onClose }: Props) {
                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
                     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                   </svg>
-                  Knowledge base
+                  {st.knowledgeBase}
                 </a>
               </div>
             </>
@@ -233,7 +238,7 @@ export function SettingsSearch({ onNavigate, onClose }: Props) {
               ))}
               <div style={{ borderTop: '1px solid #dee2e6', padding: '10px 8px 12px', marginTop: 4 }}>
                 <p style={{ margin: 0, fontSize: 12, color: 'rgba(63,69,76,0.4)' }}>
-                  Some matches may be found within the descriptions
+                  {st.someMatches}
                 </p>
               </div>
             </div>

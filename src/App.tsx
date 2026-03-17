@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Sidebar } from './components/Sidebar'
 import { LangProvider, useLang } from './i18n'
 import { VenueProvider } from './venue'
+import { getSettingsSections } from './components/settings-data'
 import './index.css'
 
 function AppContent() {
@@ -10,6 +11,10 @@ function AppContent() {
   const [settingsCompact, setSettingsCompact] = useState(false)
 
   const isSettings = active.startsWith('settings-')
+
+  const settingsPageTitles = Object.fromEntries(
+    getSettingsSections(t).flatMap(s => s.items.map(i => [i.id, i.label]))
+  )
 
   const pageTitles: Record<string, string> = {
     schedule:           t.nav.schedule,
@@ -25,35 +30,7 @@ function AppContent() {
     terms:              t.popover.terms,
     'privacy-policy':   t.popover.privacyPolicy,
     updates:            t.popover.updates,
-    // Settings pages
-    'settings-basics':             'Basics',
-    'settings-bookable-spaces':    'Bookable spaces',
-    'settings-hours':              'Hours of availability',
-    'settings-floor-plans':        'Floor plans & maps',
-    'settings-data-retention':     'Data retention',
-    'settings-tablet-displays':    'Tablet displays',
-    'settings-visitor-management': 'Visitor management',
-    'settings-occupancy-tracking': 'Occupancy tracking',
-    'settings-admin-roles':        'Admin roles & permissions',
-    'settings-support-requests':   'Support requests',
-    'settings-access':             'Access & visibility',
-    'settings-lock-in':            'Lock-in & repetition',
-    'settings-coloring':           'Coloring',
-    'settings-custom-fields':      'Custom fields',
-    'settings-custom-info':        'Custom information',
-    'settings-space-sharing':      'Space sharing',
-    'settings-online-payments':    'Online payments',
-    'settings-check-in':           'Check-in',
-    'settings-conditions':         'Conditions',
-    'settings-pricing':            'Pricing',
-    'settings-quotas':             'Quotas',
-    'settings-buffer-time':        'Buffer time',
-    'settings-booking-window':     'Booking window',
-    'settings-booking-requests':   'Booking requests',
-    'settings-notifications':      'Notifications',
-    'settings-integrations':       'Integrations',
-    'settings-sso':                'SSO / SAML 2.0 / SCIM',
-    'settings-microsoft-google':   'Microsoft 365 / Google Workspace',
+    ...settingsPageTitles,
   }
 
   const title = pageTitles[active] ?? active
@@ -94,7 +71,7 @@ function AppContent() {
                   transition: 'background 0.15s, color 0.15s, box-shadow 0.15s',
                 }}
               >
-                With descriptions
+                {t.settings.withDescriptions}
               </button>
               <button
                 data-id="settings-layout-without-desc"
@@ -111,7 +88,7 @@ function AppContent() {
                   transition: 'background 0.15s, color 0.15s, box-shadow 0.15s',
                 }}
               >
-                Without descriptions
+                {t.settings.withoutDescriptions}
               </button>
             </div>
           )}

@@ -1,3 +1,5 @@
+import type { Translations } from '../i18n'
+
 export type SettingsItem = {
   id: string
   label: string
@@ -46,65 +48,68 @@ const ICON_SECTION_BOOKINGS  = '/icons/settings/calendar-check.svg'
 const ICON_SECTION_RULES     = '/icons/settings/gavel.svg'
 const ICON_SECTION_COMMS     = '/icons/settings/messages.svg'
 
-export const SETTINGS_SECTIONS: SettingsSection[] = [
-  {
-    id: 'core-booking-setup',
-    title: 'Core booking setup',
-    compactTitle: 'Your venue',
-    sectionIcon: ICON_SECTION_VENUE,
-    items: [
-      { id: 'settings-basics',             label: 'Basics',                    description: 'Contact, culture, time, branding, subdomain',              icon: ICON_HOUSE },
-      { id: 'settings-bookable-spaces',    label: 'Bookable spaces',           description: 'Bookable rooms, studios, courts...',                       icon: ICON_GRIP },
-      { id: 'settings-hours',              label: 'Hours of availability',     description: 'Your broad "opening hours"',                               icon: ICON_BELLS },
-      { id: 'settings-floor-plans',        label: 'Floor plans & maps',        description: 'Beautiful and interactive layouts of your spaces',          icon: ICON_MAP_LOCATION },
-      { id: 'settings-data-retention',     label: 'Data retention',            description: 'How long should old bookings/visits/users be kept?',        icon: ICON_HOURGLASS },
-      { id: 'settings-tablet-displays',    label: 'Tablet displays',           description: 'Set up dedicated displays for your spaces',                 icon: ICON_TABLET },
-      { id: 'settings-visitor-management', label: 'Visitor management',        description: 'Streamline your visitor tracking and security',             icon: ICON_CLIPBOARD },
-      { id: 'settings-occupancy-tracking', label: 'Occupancy tracking',        description: 'Track when your users are on-site',                        icon: ICON_SATELLITE },
-      { id: 'settings-admin-roles',        label: 'Admin roles & permissions', description: 'Define roles and permissions for your team',               icon: ICON_LOCK },
-      { id: 'settings-support-requests',   label: 'Support requests',          description: 'Define roles and permissions for your team',               icon: ICON_FLAG },
-    ],
-  },
-  {
-    id: 'booking-settings',
-    title: 'Booking settings',
-    compactTitle: 'Bookings',
-    sectionIcon: ICON_SECTION_BOOKINGS,
-    items: [
-      { id: 'settings-access',          label: 'Access & visibility',  description: 'Who can look, who can book, and what do they see?',      icon: ICON_USER_LOCK },
-      { id: 'settings-lock-in',         label: 'Lock-in & repetition', description: 'Policies for self-service cancel, change and repeat',    icon: ICON_CLOCK_ROTATE },
-      { id: 'settings-coloring',        label: 'Coloring',             description: 'Your stylish color scheme for bookings',                  icon: ICON_PALETTE },
-      { id: 'settings-custom-fields',   label: 'Custom fields',        description: 'Flexibly collect additional booking info',                icon: ICON_BALLOT_CHECK },
-      { id: 'settings-custom-info',     label: 'Custom information',   description: 'Additional instructions shown to users',                  icon: ICON_SQUARE_INFO },
-      { id: 'settings-space-sharing',   label: 'Space sharing',        description: 'Manage dependencies between your spaces',                 icon: ICON_SITEMAP },
-      { id: 'settings-online-payments', label: 'Online payments',      description: 'Easily and securely collect booking fees',                icon: ICON_CREDIT_CARD },
-      { id: 'settings-check-in',        label: 'Check-in',             description: "Automatically free spaces if users don't show up",       icon: ICON_LOCATION_CHECK },
-    ],
-  },
-  {
-    id: 'rules',
-    title: 'Rules',
-    compactTitle: 'Rules',
-    sectionIcon: ICON_SECTION_RULES,
-    items: [
-      { id: 'settings-conditions',       label: 'Conditions',       description: 'Rules on a per-booking basis',                          icon: ICON_BADGE_CHECK },
-      { id: 'settings-pricing',          label: 'Pricing',          description: 'Your pricing structure for bookings',                   icon: ICON_MONEY_BILL },
-      { id: 'settings-quotas',           label: 'Quotas',           description: 'Rules to enforce overall booking allowances',           icon: ICON_STOPWATCH },
-      { id: 'settings-buffer-time',      label: 'Buffer time',      description: 'Rules to enforce gaps between bookings',               icon: ICON_DIRECTION },
-      { id: 'settings-booking-window',   label: 'Booking window',   description: 'Rules to define how far in advance users can book',    icon: ICON_ARROW_RIGHT_LINE },
-      { id: 'settings-booking-requests', label: 'Booking requests', description: 'Rules to define which spaces require approval',        icon: ICON_CALENDAR_CHECK },
-    ],
-  },
-  {
-    id: 'communicating',
-    title: 'Communicating',
-    compactTitle: 'Communicating',
-    sectionIcon: ICON_SECTION_COMMS,
-    items: [
-      { id: 'settings-notifications',    label: 'Notifications',                     description: 'User- and venue-directed emails',               icon: ICON_ENVELOPE },
-      { id: 'settings-integrations',     label: 'Integrations',                      description: 'Embedding, external calendars, invoicing…',     icon: ICON_PLUG },
-      { id: 'settings-sso',              label: 'SSO / SAML 2.0 / SCIM',            description: 'Single sign-on configuration',                  icon: ICON_GEAR },
-      { id: 'settings-microsoft-google', label: 'Microsoft 365 / Google Workspace', description: 'Calendar sync, attendees and conferencing',     icon: ICON_CALENDAR_DAYS },
-    ],
-  },
-]
+export function getSettingsSections(t: Translations): SettingsSection[] {
+  const s = t.settings
+  return [
+    {
+      id: 'core-booking-setup',
+      title: s.sections.coreBookingSetup,
+      compactTitle: s.sections.yourVenue,
+      sectionIcon: ICON_SECTION_VENUE,
+      items: [
+        { id: 'settings-basics',             icon: ICON_HOUSE,          ...s.items.basics },
+        { id: 'settings-bookable-spaces',    icon: ICON_GRIP,           ...s.items.bookableSpaces },
+        { id: 'settings-hours',              icon: ICON_BELLS,          ...s.items.hours },
+        { id: 'settings-floor-plans',        icon: ICON_MAP_LOCATION,   ...s.items.floorPlans },
+        { id: 'settings-data-retention',     icon: ICON_HOURGLASS,      ...s.items.dataRetention },
+        { id: 'settings-tablet-displays',    icon: ICON_TABLET,         ...s.items.tabletDisplays },
+        { id: 'settings-visitor-management', icon: ICON_CLIPBOARD,      ...s.items.visitorManagement },
+        { id: 'settings-occupancy-tracking', icon: ICON_SATELLITE,      ...s.items.occupancyTracking },
+        { id: 'settings-admin-roles',        icon: ICON_LOCK,           ...s.items.adminRoles },
+        { id: 'settings-support-requests',   icon: ICON_FLAG,           ...s.items.supportRequests },
+      ],
+    },
+    {
+      id: 'booking-settings',
+      title: s.sections.bookingSettings,
+      compactTitle: s.sections.bookings,
+      sectionIcon: ICON_SECTION_BOOKINGS,
+      items: [
+        { id: 'settings-access',          icon: ICON_USER_LOCK,      ...s.items.access },
+        { id: 'settings-lock-in',         icon: ICON_CLOCK_ROTATE,   ...s.items.lockIn },
+        { id: 'settings-coloring',        icon: ICON_PALETTE,        ...s.items.coloring },
+        { id: 'settings-custom-fields',   icon: ICON_BALLOT_CHECK,   ...s.items.customFields },
+        { id: 'settings-custom-info',     icon: ICON_SQUARE_INFO,    ...s.items.customInfo },
+        { id: 'settings-space-sharing',   icon: ICON_SITEMAP,        ...s.items.spaceSharing },
+        { id: 'settings-online-payments', icon: ICON_CREDIT_CARD,    ...s.items.onlinePayments },
+        { id: 'settings-check-in',        icon: ICON_LOCATION_CHECK, ...s.items.checkIn },
+      ],
+    },
+    {
+      id: 'rules',
+      title: s.sections.rules,
+      compactTitle: s.sections.rules,
+      sectionIcon: ICON_SECTION_RULES,
+      items: [
+        { id: 'settings-conditions',       icon: ICON_BADGE_CHECK,      ...s.items.conditions },
+        { id: 'settings-pricing',          icon: ICON_MONEY_BILL,       ...s.items.pricing },
+        { id: 'settings-quotas',           icon: ICON_STOPWATCH,        ...s.items.quotas },
+        { id: 'settings-buffer-time',      icon: ICON_DIRECTION,        ...s.items.bufferTime },
+        { id: 'settings-booking-window',   icon: ICON_ARROW_RIGHT_LINE, ...s.items.bookingWindow },
+        { id: 'settings-booking-requests', icon: ICON_CALENDAR_CHECK,   ...s.items.bookingRequests },
+      ],
+    },
+    {
+      id: 'communicating',
+      title: s.sections.communicating,
+      compactTitle: s.sections.communicating,
+      sectionIcon: ICON_SECTION_COMMS,
+      items: [
+        { id: 'settings-notifications',    icon: ICON_ENVELOPE,      ...s.items.notifications },
+        { id: 'settings-integrations',     icon: ICON_PLUG,          ...s.items.integrations },
+        { id: 'settings-sso',              icon: ICON_GEAR,          ...s.items.sso },
+        { id: 'settings-microsoft-google', icon: ICON_CALENDAR_DAYS, ...s.items.microsoftGoogle },
+      ],
+    },
+  ]
+}
