@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+:root {
+  --color-primary: #6610F2;
+  --color-primary-light: #e9dcff;
+  --color-primary-border: #b38df1;
+  --color-primary-dark: #260064;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  color: #3f454c;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font-family: inherit; cursor: pointer; }
+
+/* Collapse button hover */
+[data-id="sidebar-collapse-btn"]:hover {
+  background: #f1f3f5 !important;
+}
+
+/* Collapsed sidebar header: logo ↔ open-sidebar button crossfade */
+.sidebar-header-collapsed {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  margin: 8px auto;
+}
+.sidebar-header-collapsed .logo-layer,
+.sidebar-header-collapsed .open-btn-layer {
+  position: absolute !important;
+  inset: 0;
+  transition: opacity 0.2s ease;
+}
+.sidebar-header-collapsed .logo-layer { opacity: 1; }
+.sidebar-header-collapsed .open-btn-layer { opacity: 0; }
+.sidebar-header-collapsed:hover .logo-layer { opacity: 0; }
+.sidebar-header-collapsed:hover .open-btn-layer { opacity: 1; }
+
+/* Top tooltip via data-tooltip-top attribute */
+[data-tooltip-top] {
+  position: relative;
+}
+[data-tooltip-top]::after {
+  content: attr(data-tooltip-top);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0a0a0a;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 6px 10px;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 100;
+}
+[data-tooltip-top]:hover::after {
+  opacity: 1;
+}
+
+/* Generic tooltip via data-tooltip attribute */
+[data-tooltip] {
+  position: relative;
+}
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #0a0a0a;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 6px 10px;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 100;
+}
+[data-tooltip]:hover::after {
+  opacity: 1;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: #dee2e6;
+  border-radius: 800px;
+  outline: none;
+  width: 100%;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}

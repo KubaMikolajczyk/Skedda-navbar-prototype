@@ -1,0 +1,5 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="lock">
+<path id="Primary" d="M7 4V6H13V4C13 2.34375 11.6562 1 10 1C8.34375 1 7 2.34375 7 4ZM6 6V4C6 1.79063 7.79063 0 10 0C12.2094 0 14 1.79063 14 4V6C15.1031 6 16 6.89688 16 8V15C16 16.1031 15.1031 17 14 17H6C4.89688 17 4 16.1031 4 15V8C4 6.89688 4.89688 6 6 6ZM5 8V15C5 15.5531 5.44687 16 6 16H14C14.5531 16 15 15.5531 15 15V8C15 7.44687 14.5531 7 14 7H6C5.44687 7 5 7.44687 5 8Z" fill="var(--fill-0, black)"/>
+</g>
+</svg>
