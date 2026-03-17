@@ -7,6 +7,9 @@ import './index.css'
 function AppContent() {
   const { t } = useLang()
   const [active, setActive] = useState('schedule')
+  const [settingsCompact, setSettingsCompact] = useState(false)
+
+  const isSettings = active.startsWith('settings-')
 
   const pageTitles: Record<string, string> = {
     schedule:           t.nav.schedule,
@@ -57,16 +60,61 @@ function AppContent() {
 
   return (
     <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
-      <Sidebar activeItem={active} onNavigate={setActive} />
+      <Sidebar activeItem={active} onNavigate={setActive} settingsCompact={settingsCompact} />
 
       {/* Page placeholder */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-        <div style={{
+        <div data-id="body-header" style={{
           padding: '0 24px', height: 70,
-          display: 'flex', alignItems: 'center',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           borderBottom: '1px solid #dee2e6',
         }}>
           <span style={{ fontSize: 18, fontWeight: 500, color: '#000' }}>{title}</span>
+
+          {isSettings && (
+            <div data-id="settings-layout-switcher" style={{
+              display: 'flex',
+              background: '#f1f3f5',
+              borderRadius: 8,
+              padding: 3,
+              gap: 2,
+            }}>
+              <button
+                data-id="settings-layout-with-desc"
+                onClick={() => setSettingsCompact(false)}
+                style={{
+                  height: 28, padding: '0 12px',
+                  border: 'none', borderRadius: 6,
+                  background: !settingsCompact ? '#fff' : 'transparent',
+                  boxShadow: !settingsCompact ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                  color: !settingsCompact ? '#0a0a0a' : 'rgba(63,69,76,0.6)',
+                  fontSize: 13, fontWeight: !settingsCompact ? 500 : 400,
+                  cursor: 'pointer', whiteSpace: 'nowrap',
+                  fontFamily: "'IBM Plex Sans', sans-serif",
+                  transition: 'background 0.15s, color 0.15s, box-shadow 0.15s',
+                }}
+              >
+                With descriptions
+              </button>
+              <button
+                data-id="settings-layout-without-desc"
+                onClick={() => setSettingsCompact(true)}
+                style={{
+                  height: 28, padding: '0 12px',
+                  border: 'none', borderRadius: 6,
+                  background: settingsCompact ? '#fff' : 'transparent',
+                  boxShadow: settingsCompact ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                  color: settingsCompact ? '#0a0a0a' : 'rgba(63,69,76,0.6)',
+                  fontSize: 13, fontWeight: settingsCompact ? 500 : 400,
+                  cursor: 'pointer', whiteSpace: 'nowrap',
+                  fontFamily: "'IBM Plex Sans', sans-serif",
+                  transition: 'background 0.15s, color 0.15s, box-shadow 0.15s',
+                }}
+              >
+                Without descriptions
+              </button>
+            </div>
+          )}
         </div>
         <div style={{
           flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',

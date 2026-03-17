@@ -8,6 +8,8 @@ export type SettingsItem = {
 export type SettingsSection = {
   id: string
   title: string
+  compactTitle: string
+  sectionIcon: string
   items: SettingsItem[]
 }
 
@@ -39,11 +41,17 @@ const ICON_ENVELOPE          = '/icons/settings/envelope.svg'
 const ICON_PLUG              = '/icons/settings/plug.svg'
 const ICON_GEAR              = '/icons/settings/gear.svg'
 const ICON_CALENDAR_DAYS     = '/icons/settings/calendar-days.svg'
+const ICON_SECTION_VENUE     = '/icons/settings/house.svg'
+const ICON_SECTION_BOOKINGS  = '/icons/settings/calendar-check.svg'
+const ICON_SECTION_RULES     = '/icons/settings/gavel.svg'
+const ICON_SECTION_COMMS     = '/icons/settings/messages.svg'
 
 export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     id: 'core-booking-setup',
     title: 'Core booking setup',
+    compactTitle: 'Your venue',
+    sectionIcon: ICON_SECTION_VENUE,
     items: [
       { id: 'settings-basics',             label: 'Basics',                    description: 'Contact, culture, time, branding, subdomain',              icon: ICON_HOUSE },
       { id: 'settings-bookable-spaces',    label: 'Bookable spaces',           description: 'Bookable rooms, studios, courts...',                       icon: ICON_GRIP },
@@ -60,6 +68,8 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     id: 'booking-settings',
     title: 'Booking settings',
+    compactTitle: 'Bookings',
+    sectionIcon: ICON_SECTION_BOOKINGS,
     items: [
       { id: 'settings-access',          label: 'Access & visibility',  description: 'Who can look, who can book, and what do they see?',      icon: ICON_USER_LOCK },
       { id: 'settings-lock-in',         label: 'Lock-in & repetition', description: 'Policies for self-service cancel, change and repeat',    icon: ICON_CLOCK_ROTATE },
@@ -74,6 +84,8 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     id: 'rules',
     title: 'Rules',
+    compactTitle: 'Rules',
+    sectionIcon: ICON_SECTION_RULES,
     items: [
       { id: 'settings-conditions',       label: 'Conditions',       description: 'Rules on a per-booking basis',                          icon: ICON_BADGE_CHECK },
       { id: 'settings-pricing',          label: 'Pricing',          description: 'Your pricing structure for bookings',                   icon: ICON_MONEY_BILL },
@@ -86,6 +98,8 @@ export const SETTINGS_SECTIONS: SettingsSection[] = [
   {
     id: 'communicating',
     title: 'Communicating',
+    compactTitle: 'Communicating',
+    sectionIcon: ICON_SECTION_COMMS,
     items: [
       { id: 'settings-notifications',    label: 'Notifications',                     description: 'User- and venue-directed emails',               icon: ICON_ENVELOPE },
       { id: 'settings-integrations',     label: 'Integrations',                      description: 'Embedding, external calendars, invoicing…',     icon: ICON_PLUG },

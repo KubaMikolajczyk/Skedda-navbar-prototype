@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { SETTINGS_SECTIONS } from './settings-data'
 import { SettingsSearch } from './SettingsSearch'
-import { SettingsNavCompact } from './SettingsNavCompact'
 
 const ICON_MINUS = '/icons/settings/minus.svg'
 
@@ -9,14 +8,9 @@ type Props = {
   activeItem: string
   onNavigate: (id: string) => void
   onBack: () => void
-  compact?: boolean
 }
 
-export function SettingsNav({ activeItem, onNavigate, onBack, compact }: Props) {
-  if (compact) {
-    return <SettingsNavCompact activeItem={activeItem} onNavigate={onNavigate} onBack={onBack} />
-  }
-
+export function SettingsNavCompact({ activeItem, onNavigate, onBack }: Props) {
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>(
     () => Object.fromEntries(SETTINGS_SECTIONS.map(s => [s.id, false]))
   )
@@ -28,7 +22,7 @@ export function SettingsNav({ activeItem, onNavigate, onBack, compact }: Props) 
 
   return (
     <>
-      <div data-id="settings-nav" style={{
+      <div data-id="settings-nav-compact" style={{
         width: '100%',
         height: '100%',
         display: 'flex',
@@ -88,28 +82,30 @@ export function SettingsNav({ activeItem, onNavigate, onBack, compact }: Props) 
           </button>
         </div>
 
-        {/* Scrollable items */}
+        {/* Scrollable sections */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '0 8px 8px' }}>
           {SETTINGS_SECTIONS.map(section => (
-            <div key={section.id} data-id={`settings-nav-section-${section.id}`} style={{ marginBottom: 16 }}>
+            <div key={section.id} data-id={`settings-nav-compact-section-${section.id}`} style={{ marginBottom: 4 }}>
 
-              {/* Section toggle header */}
+              {/* Section header button */}
               <button
-                data-id={`settings-nav-section-${section.id}-toggle`}
+                data-id={`settings-nav-compact-section-${section.id}-toggle`}
                 onClick={() => toggleSection(section.id)}
                 style={{
                   width: '100%',
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  padding: '0 4px 0 0',
-                  border: 'none',
+                  display: 'flex', alignItems: 'center', gap: 8,
+                  height: 32, padding: 8,
+                  border: 'none', borderRadius: 8,
                   background: 'transparent',
                   cursor: 'pointer',
-                  marginBottom: 8,
                   fontFamily: 'inherit',
                 }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(241,243,245,0.5)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
               >
-                <span style={{ fontSize: 14, fontWeight: 700, color: '#3f454c', lineHeight: 1.5 }}>
-                  {section.title}
+                <img src={section.sectionIcon} alt="" style={{ width: 20, height: 16, flexShrink: 0, objectFit: 'contain' }} />
+                <span style={{ flex: 1, fontSize: 14, fontWeight: 700, color: '#0a0a0a', textAlign: 'left', lineHeight: 1.5 }}>
+                  {section.compactTitle}
                 </span>
                 {collapsed[section.id] ? (
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(63,69,76,0.4)" strokeWidth="1.5" strokeLinecap="round" style={{ flexShrink: 0 }}>
@@ -121,57 +117,52 @@ export function SettingsNav({ activeItem, onNavigate, onBack, compact }: Props) 
                 )}
               </button>
 
-              {/* Section items — grid trick for smooth height animation */}
+              {/* Collapsible sub-items with grid animation */}
               <div style={{
                 display: 'grid',
                 gridTemplateRows: collapsed[section.id] ? '0fr' : '1fr',
                 transition: 'grid-template-rows 0.25s cubic-bezier(0.4,0,0.2,1)',
               }}>
                 <div style={{ overflow: 'hidden', minHeight: 0 }}>
-                  {section.items.map(item => {
-                    const active = activeItem === item.id
-                    return (
-                      <button
-                        key={item.id}
-                        data-id={`settings-nav-item-${item.id}`}
-                        onClick={() => onNavigate(item.id)}
-                        title={item.description}
-                        style={{
-                          width: '100%',
-                          display: 'flex', flexDirection: 'column',
-                          alignItems: 'flex-start',
-                          padding: 8,
-                          border: 'none', borderRadius: 4,
-                          background: active ? '#f1f3f5' : 'transparent',
-                          textAlign: 'left', cursor: 'pointer',
-                          fontFamily: 'inherit',
-                        }}
-                        onMouseEnter={e => { if (!active) e.currentTarget.style.background = 'rgba(241,243,245,0.5)' }}
-                        onMouseLeave={e => { if (!active) e.currentTarget.style.background = active ? '#f1f3f5' : 'transparent' }}
-                      >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%' }}>
-                          <img src={item.icon} alt="" style={{ width: 20, height: 16, flexShrink: 0, objectFit: 'contain' }} />
+                  <div style={{ position: 'relative', paddingLeft: 27, paddingRight: 24, paddingTop: 2, paddingBottom: 2 }}>
+                    {/* Vertical border line */}
+                    <div style={{
+                      position: 'absolute', left: 16, top: 0, bottom: 0, width: 1,
+                      background: '#dee2e6',
+                    }} />
+                    {section.items.map(item => {
+                      const active = activeItem === item.id
+                      return (
+                        <button
+                          key={item.id}
+                          data-id={`settings-nav-item-${item.id}`}
+                          onClick={() => onNavigate(item.id)}
+                          style={{
+                            width: '100%',
+                            display: 'flex', alignItems: 'center',
+                            height: 28,
+                            padding: '0 8px',
+                            border: 'none', borderRadius: 8,
+                            background: active ? 'rgba(241,243,245,0.8)' : 'transparent',
+                            cursor: 'pointer',
+                            fontFamily: 'inherit',
+                            textAlign: 'left',
+                          }}
+                          onMouseEnter={e => { if (!active) e.currentTarget.style.background = 'rgba(241,243,245,0.5)' }}
+                          onMouseLeave={e => { if (!active) e.currentTarget.style.background = active ? 'rgba(241,243,245,0.8)' : 'transparent' }}
+                        >
                           <span style={{
                             fontSize: 14, fontWeight: 400, lineHeight: 1.5,
-                            color: '#212529',
+                            color: '#0a0a0a',
                             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                            width: '100%',
                           }}>
                             {item.label}
                           </span>
-                        </div>
-                        <div style={{ paddingLeft: 28, width: '100%' }}>
-                          <span style={{
-                            fontSize: 14, fontWeight: 400, lineHeight: 1.5,
-                            color: 'rgba(63,69,76,0.5)',
-                            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-                            display: 'block',
-                          }}>
-                            {item.description}
-                          </span>
-                        </div>
-                      </button>
-                    )
-                  })}
+                        </button>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
 

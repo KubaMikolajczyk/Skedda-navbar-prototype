@@ -19,9 +19,10 @@ const SETTINGS_PANEL_WIDTH = 240
 type Props = {
   activeItem: string
   onNavigate: (id: string) => void
+  settingsCompact?: boolean
 }
 
-export function Sidebar({ activeItem, onNavigate }: Props) {
+export function Sidebar({ activeItem, onNavigate, settingsCompact }: Props) {
   const { t } = useLang()
   const { venue } = useVenue()
   const [isCollapsed, setIsCollapsed] = useState(false)
@@ -278,7 +279,7 @@ export function Sidebar({ activeItem, onNavigate }: Props) {
         transition: 'transform 0.28s cubic-bezier(0.2,0,0,1)',
         zIndex: 50,
       }}>
-        <SettingsNav activeItem={activeItem} onNavigate={onNavigate} onBack={closeSettings} />
+        <SettingsNav activeItem={activeItem} onNavigate={onNavigate} onBack={closeSettings} compact={settingsCompact} />
       </div>
 
       {/* User popover */}
