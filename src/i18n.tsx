@@ -302,7 +302,7 @@ const dict: Record<Lang, Translations> = {
         placeholder: 'In Einstellungen suchen',
         suggestedLabel: 'Vorgeschlagene Suchen',
         scope: 'Sucht nur in Einstellungen. Buchungen oder andere Daten werden nicht durchsucht.',
-        noResultsFor: "Keine Einstellungen gefunden für „{query}".",
+        noResultsFor: 'Keine Einstellungen gefunden für \u201e{query}\u201c.',
         noResultsHint: 'Überprüfen Sie die Schreibweise oder versuchen Sie einen anderen Begriff',
         knowledgeBase: 'Wissensdatenbank',
         someMatches: 'Einige Treffer können in den Beschreibungen gefunden werden',
