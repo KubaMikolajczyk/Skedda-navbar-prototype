@@ -11,7 +11,7 @@ export const langLabels: Record<Lang, string> = {
 
 type ItemTrans = { label: string; description: string }
 
-type Translations = {
+export type Translations = {
   nav: {
     schedule: string
     visits: string
@@ -432,8 +432,6 @@ const dict: Record<Lang, Translations> = {
     },
   },
 }
-
-export type Translations = (typeof dict)[Lang]
 
 type LangContextType = {
   lang: Lang
