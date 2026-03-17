@@ -10,7 +10,7 @@ const ICON_VISITS   = '/icons/sidebar/visits.svg'
 const ICON_USERS    = '/icons/sidebar/users.svg'
 const ICON_INSIGHTS = '/icons/sidebar/insights.svg'
 const ICON_BOOKING  = '/icons/sidebar/booking.svg'
-const ICON_BILLING  = '/icons/settings/credit-card.svg'
+const ICON_BILLING  = '/icons/sidebar/billing.svg'
 const ICON_SETTINGS = '/icons/settings/gear.svg'
 const AVATAR_JAMES  = '/avatars/avatar_test.png'
 

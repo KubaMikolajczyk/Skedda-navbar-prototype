@@ -1,7 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16" fill="none">
-  <rect x="2" y="2" width="16" height="12" rx="1.5" stroke="#3f454c" stroke-width="1.2"/>
-  <line x1="2" y1="5.5" x2="18" y2="5.5" stroke="#3f454c" stroke-width="1.2"/>
-  <line x1="6.5" y1="1" x2="6.5" y2="3.5" stroke="#3f454c" stroke-width="1.2" stroke-linecap="round"/>
-  <line x1="13.5" y1="1" x2="13.5" y2="3.5" stroke="#3f454c" stroke-width="1.2" stroke-linecap="round"/>
-  <polyline points="7,10.5 9,12.5 13,8.5" stroke="#3f454c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 30 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="calendar-check">
+<path id="Primary" d="M20.25 0C20.6625 0 21 0.3375 21 0.75V3H22.5C24.1547 3 25.5 4.34531 25.5 6V19.5C25.5 21.1547 24.1547 22.5 22.5 22.5H7.5C5.84531 22.5 4.5 21.1547 4.5 19.5V6C4.5 4.34531 5.84531 3 7.5 3H9V0.75C9 0.3375 9.3375 0 9.75 0C10.1625 0 10.5 0.3375 10.5 0.75V3H19.5V0.75C19.5 0.3375 19.8375 0 20.25 0ZM7.5 4.5C6.67031 4.5 6 5.17031 6 6V19.5C6 20.3297 6.67031 21 7.5 21H22.5C23.3297 21 24 20.3297 24 19.5V6C24 5.17031 23.3297 4.5 22.5 4.5H7.5ZM18.8953 8.55938C19.1391 8.22656 19.6078 8.15156 19.9406 8.39531C20.2734 8.63906 20.3484 9.10781 20.1047 9.44062L14.1047 17.6906C13.9734 17.8687 13.7766 17.9812 13.5562 17.9953C13.3359 18.0094 13.1203 17.9344 12.9656 17.7797L9.96562 14.7797C9.675 14.4891 9.675 14.0109 9.96562 13.7203C10.2562 13.4297 10.7344 13.4297 11.025 13.7203L13.4016 16.0969L18.8859 8.55938H18.8953Z" fill="var(--fill-0, black)"/>
+</g>
 </svg>

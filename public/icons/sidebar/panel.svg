@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16" fill="none">
-  <rect x="1" y="1" width="18" height="14" rx="2" stroke="#3f454c" stroke-width="1.2"/>
-  <line x1="7" y1="1.5" x2="7" y2="14.5" stroke="#3f454c" stroke-width="1.2"/>
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="sidebar">
+<path id="Primary" d="M9 3V13H4C3.44687 13 3 12.5531 3 12V4C3 3.44688 3.44687 3 4 3H9ZM9.5 2H4C2.89688 2 2 2.89688 2 4V12C2 13.1031 2.89688 14 4 14H16C17.1031 14 18 13.1031 18 12V4C18 2.89688 17.1031 2 16 2H9.5ZM10 3H16C16.5531 3 17 3.44688 17 4V12C17 12.5531 16.5531 13 16 13H10V3ZM4.5 5C4.5 5.275 4.725 5.5 5 5.5H7C7.275 5.5 7.5 5.275 7.5 5C7.5 4.725 7.275 4.5 7 4.5H5C4.725 4.5 4.5 4.725 4.5 5ZM4.5 7C4.5 7.275 4.725 7.5 5 7.5H7C7.275 7.5 7.5 7.275 7.5 7C7.5 6.725 7.275 6.5 7 6.5H5C4.725 6.5 4.5 6.725 4.5 7ZM4.5 9C4.5 9.275 4.725 9.5 5 9.5H7C7.275 9.5 7.5 9.275 7.5 9C7.5 8.725 7.275 8.5 7 8.5H5C4.725 8.5 4.5 8.725 4.5 9Z" fill="var(--fill-0, #3F454C)"/>
+</g>
 </svg>
