@@ -11,7 +11,7 @@ export type VenueConfig = {
 
 export const venues: VenueConfig[] = [
   {
-    name: "Fred's Playground",
+    name: "Horizon Tech Campus",
     logo: '/logos/Logo 1.png',
     primary: '#6610F2',
     primaryLight: '#e9dcff',
