@@ -205,7 +205,7 @@ function FloorPlan() {
 export function SchedulePage() {
   const [activeView] = useState<View>('Day')
   const [showToast, setShowToast] = useState(false)
-  const toastTimer = useRef<ReturnType<typeof setTimeout>>()
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   function triggerToast() {
     if (toastTimer.current) clearTimeout(toastTimer.current)

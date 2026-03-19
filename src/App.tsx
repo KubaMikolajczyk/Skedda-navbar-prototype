@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { Sidebar } from './components/Sidebar'
 import { SchedulePage } from './components/SchedulePage'
 import { LangProvider, useLang } from './i18n'
@@ -15,7 +15,6 @@ type AppContentProps = { variant: Variant; protoId: ProtoId }
 
 function AppContent({ variant, protoId }: AppContentProps) {
   const { t } = useLang()
-  const navigate = useNavigate()
   const [active, setActive] = useState('schedule')
   const [settingsCompact, setSettingsCompact] = useState(true)
   const [isSettingsMode, setIsSettingsMode] = useState(false)
@@ -124,34 +123,57 @@ function AppContent({ variant, protoId }: AppContentProps) {
         )}
       </div>
 
-      {/* DEV: color mode toggle — remove before launch */}
-      <div data-id="color-mode-toggle" style={{
-        position: 'fixed', bottom: 66, right: 24, zIndex: 300,
-        display: 'flex',
-        background: '#f1f3f5',
-        borderRadius: 8,
-        padding: 3,
-        gap: 2,
-        boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
-      }}>
-        <button data-id="color-mode-neutral" onClick={() => setColorMode('neutral')} style={switcherBtnStyle(colorMode === 'neutral')}>Neutral</button>
-        <button data-id="color-mode-color" onClick={() => setColorMode('color')} style={switcherBtnStyle(colorMode === 'color')}>In color</button>
-      </div>
-
-      {/* DEV: prototype switcher — remove before launch */}
-      <div data-id="prototype-switcher" style={{
+      {/* Prototype settings card */}
+      <div data-id="color-mode-card" style={{
         position: 'fixed', bottom: 24, right: 24, zIndex: 300,
-        display: 'flex',
-        background: '#f1f3f5',
-        borderRadius: 8,
-        padding: 3,
-        gap: 2,
-        boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
+        width: 280,
+        background: '#fff',
+        borderRadius: 10,
+        border: '1.5px solid var(--color-primary)',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.10)',
+        padding: '16px',
+        display: 'flex', flexDirection: 'column', gap: 12,
+        fontFamily: "'IBM Plex Sans', sans-serif",
       }}>
-        <button data-id="prototype-switcher-p1" onClick={() => navigate('/prototype1')} style={switcherBtnStyle(protoId === 'p1')}>Prototype 1</button>
-        <button data-id="prototype-switcher-p2" onClick={() => navigate('/prototype2')} style={switcherBtnStyle(protoId === 'p2')}>Prototype 2</button>
-        <button data-id="prototype-switcher-p3" onClick={() => navigate('/prototype3')} style={switcherBtnStyle(protoId === 'p3')}>Prototype 3</button>
-        <button data-id="prototype-switcher-p4" onClick={() => navigate('/prototype4')} style={switcherBtnStyle(protoId === 'p4')}>Prototype 4</button>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <span style={{ fontSize: 13, fontWeight: 600, color: '#0a0a0a' }}>Prototype settings</span>
+          <span style={{ fontSize: 12, color: '#767c83', lineHeight: 1.5 }}>
+            See this prototype in neutral colors or using the venue's primary color. Which do you prefer and why?
+          </span>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {(['neutral', 'color'] as const).map((mode) => {
+            const active = colorMode === mode
+            const label = mode === 'neutral' ? 'A) Neutral' : 'B) In color'
+            return (
+              <button
+                key={mode}
+                data-id={`color-mode-${mode}`}
+                onClick={() => setColorMode(mode)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 10,
+                  padding: '8px 10px',
+                  border: active ? '1.5px solid var(--color-primary)' : '1.5px solid #dee2e6',
+                  borderRadius: 6,
+                  background: active ? 'var(--color-primary-light)' : '#fff',
+                  color: active ? 'var(--color-primary-dark)' : '#3f454c',
+                  fontSize: 13, fontWeight: active ? 500 : 400,
+                  textAlign: 'left', cursor: 'pointer',
+                  transition: 'all 0.15s',
+                }}
+              >
+                <span style={{
+                  width: 18, height: 18, borderRadius: '50%', flexShrink: 0,
+                  border: active ? '2px solid var(--color-primary)' : '2px solid #c8cdd2',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  {active && <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--color-primary)', display: 'block' }} />}
+                </span>
+                {label}
+              </button>
+            )
+          })}
+        </div>
       </div>
     </div>
   )

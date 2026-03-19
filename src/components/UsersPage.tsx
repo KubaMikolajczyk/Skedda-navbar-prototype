@@ -41,7 +41,7 @@ const btnOutline: React.CSSProperties = {
 export function UsersPage() {
   const { venue } = useVenue()
   const [showToast, setShowToast] = useState(false)
-  const toastTimer = useRef<ReturnType<typeof setTimeout>>()
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   function triggerToast() {
     if (toastTimer.current) clearTimeout(toastTimer.current)
