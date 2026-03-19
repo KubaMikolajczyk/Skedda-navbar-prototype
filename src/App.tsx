@@ -185,7 +185,7 @@ function SideBySidePane({ variant, label }: { variant: Variant; label: string })
   const isV2 = variant === 'v2'
 
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRadius: 8, overflow: 'hidden', boxShadow: '0 2px 16px rgba(0,0,0,0.14)', minWidth: 0 }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRadius: 8, overflow: 'hidden', boxShadow: '0 2px 16px rgba(0,0,0,0.14)', minWidth: 0, background: '#fff' }}>
       {/* Black label strip */}
       <div style={{
         background: '#000', color: '#fff',
