@@ -91,7 +91,7 @@ export function UserPopover({ anchorEl, onClose, onNavigate }: Props) {
     border: '1px solid #dee2e6',
     borderRadius: 8,
     boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
-    zIndex: 200,
+    zIndex: 400,
     fontFamily: "'IBM Plex Sans', sans-serif",
     overflow: 'hidden',
   }
@@ -121,18 +121,24 @@ export function UserPopover({ anchorEl, onClose, onNavigate }: Props) {
     ...extra,
   })
 
+  const subPopoverLeft = Math.min(
+    left + POPOVER_WIDTH + 4,
+    window.innerWidth - SUBPOPOVER_WIDTH - 8
+  )
+
   const subPopoverStyle = (top: number): React.CSSProperties => ({
     position: 'fixed',
-    top,
-    left: left + POPOVER_WIDTH + 4,
+    top: Math.min(top, window.innerHeight - 8),
+    left: subPopoverLeft,
     width: SUBPOPOVER_WIDTH,
     background: '#fff',
     border: '1px solid #dee2e6',
     borderRadius: 8,
     boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
-    zIndex: 201,
+    zIndex: 401,
     fontFamily: "'IBM Plex Sans', sans-serif",
-    overflow: 'hidden',
+    overflowY: 'auto',
+    maxHeight: `calc(100vh - ${top + 8}px)`,
     padding: '4px',
   })
 

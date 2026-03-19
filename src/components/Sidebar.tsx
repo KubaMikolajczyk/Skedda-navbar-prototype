@@ -53,7 +53,7 @@ function VenueSelectPopover({ anchorEl, onClose }: { anchorEl: HTMLElement; onCl
       border: '1px solid #dee2e6',
       borderRadius: 8,
       boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
-      zIndex: 200,
+      zIndex: 400,
       fontFamily: "'IBM Plex Sans', sans-serif",
       padding: 4,
     }}>
