@@ -211,7 +211,7 @@ export function Sidebar({ activeItem, onNavigate, settingsCompact, variant: _var
               </div>
               <button
                 className="open-btn-layer"
-                data-id="sidebar-collapse-btn"
+                data-id="sidebar-collapse-btn" data-color-mode={colorMode}
                 data-tooltip={t.sidebar.openSidebar}
                 onClick={() => { setIsCollapsed(false); setVenueBadgeOpen(false) }}
                 style={{
@@ -242,7 +242,7 @@ export function Sidebar({ activeItem, onNavigate, settingsCompact, variant: _var
                 <img src={venue.logo} alt={venue.name} style={{ width: 28, height: 28, objectFit: 'contain' }} />
               </div>
               <button
-                data-id="sidebar-collapse-btn"
+                data-id="sidebar-collapse-btn" data-color-mode={colorMode}
                 data-tooltip={t.sidebar.closeSidebar}
                 onClick={() => setIsCollapsed(true)}
                 style={{

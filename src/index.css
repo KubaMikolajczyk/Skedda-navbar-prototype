@@ -22,8 +22,11 @@ body {
 button { font-family: inherit; cursor: pointer; }
 
 /* Collapse button hover */
-[data-id="sidebar-collapse-btn"]:hover {
+[data-id="sidebar-collapse-btn"][data-color-mode="neutral"]:hover {
   background: #f1f3f5 !important;
+}
+[data-id="sidebar-collapse-btn"][data-color-mode="color"]:hover {
+  background: rgba(255,255,255,0.25) !important;
 }
 
 /* Collapsed sidebar header: logo ↔ open-sidebar button crossfade */
