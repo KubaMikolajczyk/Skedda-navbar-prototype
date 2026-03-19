@@ -176,9 +176,9 @@ export function UserPopover({ anchorEl, onClose, onNavigate }: Props) {
           <button
             data-id="user-popover-edit-profile-btn"
             onClick={() => onNavigate('edit-profile')}
-            style={{ border: 'none', background: 'none', fontSize: 14, color: 'rgba(63,69,76,0.6)', cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}
+            style={{ border: 'none', background: 'none', fontSize: 14, color: '#767c83', cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}
             onMouseEnter={e => (e.currentTarget.style.color = '#0a0a0a')}
-            onMouseLeave={e => (e.currentTarget.style.color = 'rgba(63,69,76,0.6)')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#767c83')}
           >
             {t.popover.editProfile}
           </button>

@@ -165,7 +165,7 @@ export function SettingsNav({ activeItem, onNavigate, onBack, compact }: Props) 
                         <div style={{ paddingLeft: 28, width: '100%' }}>
                           <span style={{
                             fontSize: 14, fontWeight: 400, lineHeight: 1.5,
-                            color: 'rgba(63,69,76,0.5)',
+                            color: '#767c83',
                             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                             display: 'block',
                           }}>

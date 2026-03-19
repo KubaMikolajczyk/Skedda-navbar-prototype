@@ -141,7 +141,7 @@ export function SettingsSearch({ onNavigate, onClose }: Props) {
           {/* Empty state — suggested searches */}
           {!hasQuery && (
             <div style={{ padding: '12px 8px 8px' }}>
-              <p style={{ fontSize: 13, color: 'rgba(63,69,76,0.5)', margin: '0 8px 16px' }}>
+              <p style={{ fontSize: 13, color: '#767c83', margin: '0 8px 16px' }}>
                 {st.scope}
               </p>
               <p data-id="settings-search-suggested-label" style={{
@@ -161,7 +161,7 @@ export function SettingsSearch({ onNavigate, onClose }: Props) {
                   <img src={item.icon} alt="" style={{ width: 20, height: 16, flexShrink: 0, objectFit: 'contain', marginTop: 2 }} />
                   <div>
                     <div style={{ fontSize: 14, color: '#212529', lineHeight: 1.5 }}>{item.label}</div>
-                    <div style={{ fontSize: 13, color: 'rgba(63,69,76,0.5)', lineHeight: 1.4 }}>{item.description}</div>
+                    <div style={{ fontSize: 13, color: '#767c83', lineHeight: 1.4 }}>{item.description}</div>
                   </div>
                 </button>
               ))}
@@ -181,7 +181,7 @@ export function SettingsSearch({ onNavigate, onClose }: Props) {
                 <p style={{ margin: 0, fontSize: 14, color: '#212529', textAlign: 'center' }}>
                   {st.noResultsFor.replace('{query}', query.trim())}
                 </p>
-                <p style={{ margin: 0, fontSize: 13, color: 'rgba(63,69,76,0.5)', textAlign: 'center' }}>
+                <p style={{ margin: 0, fontSize: 13, color: '#767c83', textAlign: 'center' }}>
                   {st.noResultsHint}
                 </p>
               </div>
@@ -211,7 +211,7 @@ export function SettingsSearch({ onNavigate, onClose }: Props) {
             <div style={{ padding: '4px 8px 0' }}>
               {grouped.map(({ sectionTitle, items }) => (
                 <div key={sectionTitle} data-id={`settings-search-group-${sectionTitle}`}>
-                  <p style={{ margin: '8px 8px 2px', fontSize: 12, fontWeight: 700, color: 'rgba(63,69,76,0.5)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  <p style={{ margin: '8px 8px 2px', fontSize: 12, fontWeight: 700, color: '#767c83', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                     {sectionTitle}
                   </p>
                   {items.map(item => (
@@ -228,7 +228,7 @@ export function SettingsSearch({ onNavigate, onClose }: Props) {
                         <div style={{ fontSize: 14, color: '#212529', lineHeight: 1.5 }}>
                           <Highlight text={item.label} query={query.trim()} />
                         </div>
-                        <div style={{ fontSize: 13, color: 'rgba(63,69,76,0.5)', lineHeight: 1.4 }}>
+                        <div style={{ fontSize: 13, color: '#767c83', lineHeight: 1.4 }}>
                           <Highlight text={item.description} query={query.trim()} />
                         </div>
                       </div>
@@ -237,7 +237,7 @@ export function SettingsSearch({ onNavigate, onClose }: Props) {
                 </div>
               ))}
               <div style={{ borderTop: '1px solid #dee2e6', padding: '10px 8px 12px', marginTop: 4 }}>
-                <p style={{ margin: 0, fontSize: 12, color: 'rgba(63,69,76,0.4)' }}>
+                <p style={{ margin: 0, fontSize: 12, color: '#767c83' }}>
                   {st.someMatches}
                 </p>
               </div>
