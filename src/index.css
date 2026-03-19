@@ -29,6 +29,11 @@ button { font-family: inherit; cursor: pointer; }
   background: rgba(255,255,255,0.25) !important;
 }
 
+/* Delay open-btn tooltip until after the crossfade transition ends (avoids compositing-layer clip) */
+.sidebar-header-collapsed:hover .open-btn-layer[data-tooltip]::after {
+  transition-delay: 0.22s;
+}
+
 /* Collapsed sidebar header: logo ↔ open-sidebar button crossfade */
 .sidebar-header-collapsed {
   position: relative;
