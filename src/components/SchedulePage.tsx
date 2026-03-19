@@ -70,9 +70,10 @@ function PersonIcon() {
   )
 }
 
-function DayView({ onBookingClick }: { onBookingClick: () => void }) {
+function DayView({ onBookingClick, bays }: { onBookingClick: () => void; bays: string[] }) {
   const hours  = Array.from({ length: END_HOUR - START_HOUR + 1 }, (_, i) => START_HOUR + i)
   const totalH = (END_HOUR - START_HOUR) * HOUR_HEIGHT
+  const bayIndices = bays.map(b => BAYS.indexOf(b))
 
   return (
     <div data-id="day-view" style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
@@ -84,7 +85,7 @@ function DayView({ onBookingClick }: { onBookingClick: () => void }) {
         background: '#fff',
       }}>
         <div style={{ width: GUTTER_W, flexShrink: 0 }} />
-        {BAYS.map(bay => (
+        {bays.map(bay => (
           <div key={bay} data-id={`day-view-col-${bay.toLowerCase().replace(/\s+/g, '-')}`} onClick={onBookingClick} style={{
             flex: 1, minWidth: 0,
             padding: '10px 12px',
@@ -130,13 +131,14 @@ function DayView({ onBookingClick }: { onBookingClick: () => void }) {
           ))}
 
           {/* Columns + bookings */}
-          {BAYS.map((bay, bi) => {
-            const pct = 100 / BAYS.length
+          {bays.map((bay, colIdx) => {
+            const bi  = bayIndices[colIdx]
+            const pct = 100 / bays.length
             return (
               <div key={bay} style={{
                 position: 'absolute',
                 top: 0, bottom: 0,
-                left: `${bi * pct}%`,
+                left: `${colIdx * pct}%`,
                 width: `${pct}%`,
                 borderLeft: '1px solid #dee2e6',
               }}>
@@ -202,10 +204,11 @@ function FloorPlan() {
   )
 }
 
-export function SchedulePage() {
+export function SchedulePage({ singleColumn = false }: { singleColumn?: boolean }) {
   const [activeView] = useState<View>('Day')
   const [showToast, setShowToast] = useState(false)
   const toastTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const activeBays = singleColumn ? BAYS.slice(0, 1) : BAYS
 
   function triggerToast() {
     if (toastTimer.current) clearTimeout(toastTimer.current)
@@ -330,7 +333,7 @@ export function SchedulePage() {
       </div>
 
       {/* Content */}
-      {activeView === 'Day' ? <DayView onBookingClick={triggerToast} /> : <FloorPlan />}
+      {activeView === 'Day' ? <DayView onBookingClick={triggerToast} bays={activeBays} /> : <FloorPlan />}
 
       {/* Placeholder toast */}
       {showToast && (

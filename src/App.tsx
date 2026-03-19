@@ -179,6 +179,67 @@ function AppContent({ variant, protoId }: AppContentProps) {
   )
 }
 
+function SideBySidePane({ variant, label }: { variant: Variant; label: string }) {
+  const [active, setActive] = useState('schedule')
+  const [isSettingsMode, setIsSettingsMode] = useState(false)
+  const isV2 = variant === 'v2'
+
+  return (
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRadius: 8, overflow: 'hidden', boxShadow: '0 2px 16px rgba(0,0,0,0.14)', minWidth: 0 }}>
+      {/* Black label strip */}
+      <div style={{
+        background: '#000', color: '#fff',
+        padding: '10px 16px',
+        fontSize: 13, fontWeight: 500, flexShrink: 0,
+        fontFamily: "'IBM Plex Sans', sans-serif",
+      }}>
+        {label}
+      </div>
+      {/* App content */}
+      <div style={{ flex: 1, display: 'flex', overflow: 'hidden', position: 'relative' }}>
+        <Sidebar
+          activeItem={active}
+          onNavigate={setActive}
+          variant={variant}
+          onSettingsModeChange={isV2 ? setIsSettingsMode : undefined}
+          protoId="p5"
+          containerized
+        />
+        <div style={{
+          flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden',
+          marginLeft: isV2 ? (isSettingsMode ? 240 : 60) : 0,
+          transition: isV2 ? 'margin-left 0.28s cubic-bezier(0.2,0,0,1)' : undefined,
+        }}>
+          {active === 'schedule' ? (
+            <SchedulePage singleColumn />
+          ) : (
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ fontSize: 13, color: '#767c83', fontFamily: "'IBM Plex Sans', sans-serif" }}>
+                Placeholder for {active} content
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Prototype5() {
+  return (
+    <div style={{
+      display: 'flex', height: '100vh',
+      background: '#e5e7eb',
+      padding: 20, gap: 20,
+      overflow: 'hidden',
+      boxSizing: 'border-box',
+    }}>
+      <SideBySidePane variant="v1" label="Click to collapse / expand" />
+      <SideBySidePane variant="v2" label="Hover to expand (overlay)" />
+    </div>
+  )
+}
+
 function PrototypeRoutes() {
   return (
     <Routes>
@@ -186,6 +247,7 @@ function PrototypeRoutes() {
       <Route path="/prototype2" element={<AppContent key="p2" variant="v2" protoId="p2" />} />
       <Route path="/prototype3" element={<AppContent key="p3" variant="v1" protoId="p3" />} />
       <Route path="/prototype4" element={<AppContent key="p4" variant="v2" protoId="p4" />} />
+      <Route path="/prototype5" element={<Prototype5 />} />
       <Route path="*" element={<Navigate to="/prototype1" replace />} />
     </Routes>
   )

@@ -98,9 +98,10 @@ type Props = {
   onSettingsModeChange?: (open: boolean) => void
   colorMode?: ColorMode
   protoId?: string
+  containerized?: boolean
 }
 
-export function Sidebar({ activeItem, onNavigate, settingsCompact, variant: _variant, onSettingsModeChange, colorMode = 'neutral', protoId }: Props) {
+export function Sidebar({ activeItem, onNavigate, settingsCompact, variant: _variant, onSettingsModeChange, colorMode = 'neutral', protoId, containerized = false }: Props) {
   const { t } = useLang()
   const { venue } = useVenue()
   const isV2 = _variant === 'v2'
@@ -171,7 +172,7 @@ export function Sidebar({ activeItem, onNavigate, settingsCompact, variant: _var
       <aside data-id="sidebar" style={{
         width: isCollapsed ? 60 : 240,
         minWidth: isCollapsed ? 60 : 240,
-        height: '100vh',
+        height: containerized ? '100%' : '100vh',
         display: 'flex',
         flexDirection: 'column',
         background: isColor ? 'var(--color-primary-dark)' : (isV2 ? '#fcfdfd' : 'rgba(248,249,250,0.4)'),
@@ -180,7 +181,7 @@ export function Sidebar({ activeItem, onNavigate, settingsCompact, variant: _var
         transition: 'width 0.3s cubic-bezier(0.4,0,0.2,1), min-width 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.25s cubic-bezier(0.2,0,0,1)',
         opacity: settingsMode ? 0 : 1,
         pointerEvents: settingsMode ? 'none' : 'auto',
-        ...(isV2 ? { position: 'fixed' as const, top: 0, left: 0, zIndex: 100 } : {}),
+        ...(isV2 ? { position: containerized ? 'absolute' as const : 'fixed' as const, top: 0, left: 0, zIndex: 100 } : {}),
       }}
       onMouseEnter={() => { if (isV2) { mouseOverSidebarRef.current = true; setIsCollapsed(false) } }}
       onMouseLeave={() => { if (isV2) { mouseOverSidebarRef.current = false; if (!popoverOpen && !venueBadgeOpen) setIsCollapsed(true) } }}
@@ -383,8 +384,8 @@ export function Sidebar({ activeItem, onNavigate, settingsCompact, variant: _var
         </div>
       </aside>
 
-      {/* Venue badge — visible only when collapsed */}
-      {isCollapsed && !settingsMode && (
+      {/* Venue badge — visible only when collapsed, not in containerized mode */}
+      {isCollapsed && !settingsMode && !containerized && (
         <button
           ref={venueBadgeRef}
           data-id="venue-badge"
@@ -423,11 +424,11 @@ export function Sidebar({ activeItem, onNavigate, settingsCompact, variant: _var
 
       {/* Settings panel — fixed overlay, slides in from left viewport edge */}
       <div data-id="sidebar-settings-panel" style={{
-        position: 'fixed',
+        position: containerized ? 'absolute' : 'fixed',
         top: 0,
         left: 0,
         width: SETTINGS_PANEL_WIDTH,
-        height: '100vh',
+        height: containerized ? '100%' : '100vh',
         transform: settingsMode ? 'translateX(0)' : `translateX(-${SETTINGS_PANEL_WIDTH}px)`,
         pointerEvents: settingsMode ? 'auto' : 'none',
         transition: 'transform 0.28s cubic-bezier(0.2,0,0,1)',
