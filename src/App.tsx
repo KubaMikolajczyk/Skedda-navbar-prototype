@@ -10,7 +10,7 @@ import './index.css'
 export type Variant = 'v1' | 'v2'
 export type ColorMode = 'neutral' | 'color'
 
-type ProtoId = 'p1' | 'p2' | 'p3' | 'p4'
+type ProtoId = 'p1' | 'p2' | 'p3' | 'p4' | 'p5' | 'p6'
 type AppContentProps = { variant: Variant; protoId: ProtoId }
 
 function AppContent({ variant, protoId }: AppContentProps) {
@@ -179,7 +179,7 @@ function AppContent({ variant, protoId }: AppContentProps) {
   )
 }
 
-function SideBySidePane({ variant, label }: { variant: Variant; label: string }) {
+function SideBySidePane({ variant, label, protoId }: { variant: Variant; label: string; protoId: ProtoId }) {
   const [active, setActive] = useState('schedule')
   const [isSettingsMode, setIsSettingsMode] = useState(false)
   const isV2 = variant === 'v2'
@@ -202,7 +202,7 @@ function SideBySidePane({ variant, label }: { variant: Variant; label: string })
           onNavigate={setActive}
           variant={variant}
           onSettingsModeChange={isV2 ? setIsSettingsMode : undefined}
-          protoId="p5"
+          protoId={protoId}
           containerized
         />
         <div style={{
@@ -225,7 +225,7 @@ function SideBySidePane({ variant, label }: { variant: Variant; label: string })
   )
 }
 
-function Prototype5() {
+function SideBySideLayout({ protoId }: { protoId: ProtoId }) {
   return (
     <div style={{
       display: 'flex', height: '100vh',
@@ -234,8 +234,8 @@ function Prototype5() {
       overflow: 'hidden',
       boxSizing: 'border-box',
     }}>
-      <SideBySidePane variant="v1" label="Click to collapse / expand" />
-      <SideBySidePane variant="v2" label="Hover to expand (overlay)" />
+      <SideBySidePane variant="v1" label="Click to collapse / expand" protoId={protoId} />
+      <SideBySidePane variant="v2" label="Hover to expand (overlay)" protoId={protoId} />
     </div>
   )
 }
@@ -247,7 +247,8 @@ function PrototypeRoutes() {
       <Route path="/prototype2" element={<AppContent key="p2" variant="v2" protoId="p2" />} />
       <Route path="/prototype3" element={<AppContent key="p3" variant="v1" protoId="p3" />} />
       <Route path="/prototype4" element={<AppContent key="p4" variant="v2" protoId="p4" />} />
-      <Route path="/prototype5" element={<Prototype5 />} />
+      <Route path="/prototype5" element={<SideBySideLayout protoId="p5" />} />
+      <Route path="/prototype6" element={<SideBySideLayout protoId="p6" />} />
       <Route path="*" element={<Navigate to="/prototype1" replace />} />
     </Routes>
   )

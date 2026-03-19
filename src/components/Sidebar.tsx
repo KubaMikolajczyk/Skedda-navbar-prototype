@@ -106,7 +106,7 @@ export function Sidebar({ activeItem, onNavigate, settingsCompact, variant: _var
   const { venue } = useVenue()
   const isV2 = _variant === 'v2'
   const isColor = colorMode === 'color'
-  const isP34 = protoId === 'p3' || protoId === 'p4'
+  const isP34 = protoId === 'p3' || protoId === 'p4' || protoId === 'p6'
   const [isCollapsed, setIsCollapsed] = useState(isV2)
   const [popoverOpen, setPopoverOpen] = useState(false)
   const [settingsMode, setSettingsMode] = useState(false)
